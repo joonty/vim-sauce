@@ -36,6 +36,8 @@ endif
 
 command! -n=1 -complete=customlist,s:CompleteSauce -bar Sauce call sauce#LoadSauce('<args>')
 command! -n=1 -bar SauceNew call sauce#SauceNew('<args>')
+command! -n=1 -complete=customlist,s:CompleteSauce -bar SauceEdit call sauce#SauceEdit('<args>')
+command! -n=1 -complete=customlist,s:CompleteSauce -bar SauceDelete call sauce#SauceDelete('<args>')
 
 function! s:CompleteSauce(A,L,P) 
     return filter(sauce#SauceNames(), 'v:val =~ a:A')
