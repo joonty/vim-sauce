@@ -29,7 +29,6 @@ if !exists("g:sauce_output")
 endif
 
 let g:sauce_path = resolve(expand(g:sauce_path))
-let g:sauce_plugin_dir = expand("<sfile>")
 
 if !isdirectory(g:sauce_path)
 	call mkdir(g:sauce_path)
@@ -41,3 +40,4 @@ command! -n=1 -bar SauceNew call sauce#SauceNew('<args>')
 function! s:CompleteSauce(A,L,P) 
     return filter(sauce#SauceNames(), 'v:val =~ a:A')
 endfunction 
+let g:sauce_skel_file = resolve(expand("<sfile>:h")."/../skel/vimrc.tmpl")

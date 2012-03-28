@@ -7,7 +7,7 @@ function! sauce#SauceNew(name)
 		return
 	endif
 	let fname = g:sauce_path.a:name.".vimrc"
-	exec "e ".fname."
+	exec "silent e ".fname." | silent r ".g:sauce_skel_file
 endfunction
 
 function! sauce#SauceNames()
@@ -34,3 +34,4 @@ function sauce#LoadSauce(source)
 		echohl Error | echo "Invalid sauce file: ".saucefile | echohl None
 	endif
 endfunction
+"}}}
