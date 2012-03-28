@@ -25,8 +25,8 @@ endfunction
 function! sauce#SauceDelete(name)
 	let fname = g:sauce_path.a:name.".vimrc"
 	if filereadable(fname)
-		let tmpresponse = tolower(input("Are you sure you want to delete the sauce '".a:name."'? (yN) ",""))
-		if tmpresponse == "y"
+		let response = confirm("Are you sure you want to delete the sauce '".a:name."'? ","&Yes\n&No",2)
+		if response == 1
 			let delret = delete(fname)
 			if 0 == delret
 				echohl Error | echo "Deleted sauce file: ".fname | echohl None

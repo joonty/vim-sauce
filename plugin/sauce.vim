@@ -1,5 +1,5 @@
 " ------------------------------------------------------------------------------
-" Filename:      sauce.vim                                                {{{
+" Vim Sauce                                                {{{
 "
 " Author: Jon Cairns <jon@joncairnsMaintainer.com>
 "
