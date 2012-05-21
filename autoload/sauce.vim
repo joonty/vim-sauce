@@ -1,14 +1,29 @@
 "{{{ Private functions
 
 " Create a new sauce file with the given name
-function! sauce#SauceNew(name)
+function! sauce#SauceNew(name,skel)
 	let names=sauce#SauceNames()
 	if index(names,a:name) >= 0
 		echohl Error | echo "A sauce with this name already exists" | echohl None
-		return
+		return 0
 	endif
 	let fname = g:sauce_path.a:name.".vimrc"
-	exec "silent e ".fname." | silent r ".g:sauce_skel_file
+	exec "silent e ".fname." | silent r ".a:skel
+    return 1
+endfunction
+
+" Create a new sauce file with the given name
+function! sauce#SauceCopy(name)
+	let cfname = g:sauce_path.a:name.".vimrc"
+	if filereadable(cfname)
+        let l:ret = 0
+        while l:ret == 0
+            let l:name = input("Please enter a name for the new sauce: ")
+            let l:ret = sauce#SauceNew(l:name,cfname)
+        endwhile
+	else
+		echohl Error | echo "Invalid sauce file: ".fname | echohl None
+	endif
 endfunction
 
 " Edit a sauce file with the given name
@@ -21,6 +36,26 @@ function! sauce#SauceEdit(name)
 	endif
 endfunction
 
+" Delete a sauce file with the given name
+function! sauce#SauceDelete(name)
+	let fname = g:sauce_path.a:name.".vimrc"
+	if filereadable(fname)
+		let response = confirm("Are you sure you want to delete the sauce '".a:name."'? ","&Yes\n&No",2)
+		if response == 1
+			let delret = delete(fname)
+			if 0 == delret
+				echohl Error | echo "Deleted sauce file: ".fname | echohl None
+			else
+				echohl Error | echo "Failed to delete sauce file: ".fname | echohl None
+			endif
+		else
+			echom "Cancelled delete"
+		endif
+	else
+		echohl Error | echo "Invalid sauce file: ".fname | echohl None
+	endif
+endfunction
+"
 " Delete a sauce file with the given name
 function! sauce#SauceDelete(name)
 	let fname = g:sauce_path.a:name.".vimrc"
