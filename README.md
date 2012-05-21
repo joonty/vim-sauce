@@ -24,6 +24,8 @@ Actually, a quick guide is all that's needed. There are just a few handy functio
 :SauceNew <name>
 " Edit an existing sauce
 :SauceEdit <name>
+" Copy an existing sauce as a new sauce
+:SauceCopy <name>
 " Delete an existing sauce (will prompt you to confirm)
 :SauceDelete <name>
 ```
@@ -49,7 +51,7 @@ let g:sauce_path = "/path/to/sauces"
 
 ## Known Issues
 
-This currently won't work with Windows. However, plans are in place to change that.
+The autocomplete currently won't work with Windows. However, plans are in place to change that.
 
 ## License
 

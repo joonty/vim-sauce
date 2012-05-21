@@ -78,14 +78,16 @@ endfunction
 
 " Get all sauces as a list
 function! sauce#SauceNames()
-	let l:findop=system("find ".g:sauce_path." -name \"*.vimrc\" |awk -F/ '{print $NF}'")
-	let l:sourcefiles=split(l:findop,"\n")
-	let l:sources = []
-	let l:sourcename = ""
-	for fname in l:sourcefiles
-		let l:sourcename = substitute(fname,".vimrc","","")
-		call add(l:sources,l:sourcename)
-	endfor
+    let l:sources = []
+    if has("unix")
+        let l:findop=system("find ".g:sauce_path." -name \"*.vimrc\" |awk -F/ '{print $NF}'")
+        let l:sourcefiles=split(l:findop,"\n")
+        let l:sourcename = ""
+        for fname in l:sourcefiles
+            let l:sourcename = substitute(fname,".vimrc","","")
+            call add(l:sources,l:sourcename)
+        endfor
+    endif
 	return l:sources
 endfunction
 
