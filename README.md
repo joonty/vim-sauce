@@ -25,9 +25,11 @@ Actually, a quick guide is all that's needed. There are just a few handy functio
 " Edit an existing sauce
 :SauceEdit <name>
 " Copy an existing sauce as a new sauce
-:SauceCopy <name>
+:SauceCopy <name> (will ask for another name)
 " Delete an existing sauce (will prompt you to confirm)
 :SauceDelete <name>
+" Rename an existing sauce (will ask for the new name)
+:SauceRename <name>
 ```
 
 ## Installation
