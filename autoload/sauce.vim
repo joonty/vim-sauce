@@ -26,6 +26,23 @@ function! sauce#SauceCopy(name)
 	endif
 endfunction
 
+" Create a new sauce file with the given name
+function! sauce#SauceRename(name)
+	let cfname = g:sauce_path.a:name.".vimrc"
+	if filereadable(cfname)
+        let l:ret = 1
+        let l:name = input("Please enter a new name for the sauce: ")
+        let l:ret = rename(cfname,g:sauce_path.l:name.".vimrc")
+        if l:ret == 0
+          echohl Error | echo "Renamed sauce file ".a:name." to ".l:name | echohl None
+        else
+          echohl Error | echo "Failed to rename sauce file ".a:name | echohl None
+        endif
+	else
+		echohl Error | echo "Invalid sauce file: ".fname | echohl None
+	endif
+endfunction
+
 " Edit a sauce file with the given name
 function! sauce#SauceEdit(name)
 	let fname = g:sauce_path.a:name.".vimrc"
