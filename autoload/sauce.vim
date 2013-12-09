@@ -7,14 +7,14 @@ function! sauce#SauceNew(name,skel)
 		echohl Error | echo "A sauce with this name already exists" | echohl None
 		return 0
 	endif
-	let fname = g:sauce_path.a:name.".vimrc"
+	let fname = g:sauce_path.a:name.".".g:sauce_extension
 	exec "silent e ".fname." | silent r ".a:skel
     return 1
 endfunction
 
 " Create a new sauce file with the given name
 function! sauce#SauceCopy(name)
-	let cfname = g:sauce_path.a:name.".vimrc"
+	let cfname = g:sauce_path.a:name.".".g:sauce_extension
 	if filereadable(cfname)
         let l:ret = 0
         while l:ret == 0
@@ -28,11 +28,11 @@ endfunction
 
 " Create a new sauce file with the given name
 function! sauce#SauceRename(name)
-	let cfname = g:sauce_path.a:name.".vimrc"
+	let cfname = g:sauce_path.a:name.".".g:sauce_extension
 	if filereadable(cfname)
         let l:ret = 1
         let l:name = input("Please enter a new name for the sauce: ")
-        let l:ret = rename(cfname,g:sauce_path.l:name.".vimrc")
+        let l:ret = rename(cfname,g:sauce_path.l:name.".".g:sauce_extension)
         if l:ret == 0
           echohl Error | echo "Renamed sauce file ".a:name." to ".l:name | echohl None
         else
@@ -45,8 +45,8 @@ endfunction
 
 " Edit a sauce file with the given name
 function! sauce#SauceEdit(name)
-	let fname = g:sauce_path.a:name.".vimrc"
-	if filereadable(fname)	
+	let fname = g:sauce_path.a:name.".".g:sauce_extension
+	if filereadable(fname)
 		exec "silent e ".fname
 	else
 		echohl Error | echo "Invalid sauce file: ".fname | echohl None
@@ -55,7 +55,7 @@ endfunction
 
 " Delete a sauce file with the given name
 function! sauce#SauceDelete(name)
-	let fname = g:sauce_path.a:name.".vimrc"
+	let fname = g:sauce_path.a:name.".".g:sauce_extension
 	if filereadable(fname)
 		let response = confirm("Are you sure you want to delete the sauce '".a:name."'? ","&Yes\n&No",2)
 		if response == 1
@@ -75,7 +75,7 @@ endfunction
 "
 " Delete a sauce file with the given name
 function! sauce#SauceDelete(name)
-	let fname = g:sauce_path.a:name.".vimrc"
+	let fname = g:sauce_path.a:name.".".g:sauce_extension
 	if filereadable(fname)
 		let response = confirm("Are you sure you want to delete the sauce '".a:name."'? ","&Yes\n&No",2)
 		if response == 1
@@ -97,11 +97,11 @@ endfunction
 function! sauce#SauceNames()
     let l:sources = []
     if has("unix")
-        let l:findop=system("find ".g:sauce_path." -name \"*.vimrc\" |awk -F/ '{print $NF}'")
+        let l:findop=system("find ".g:sauce_path." -name \"*.".g:sauce_extension."\" |awk -F/ '{print $NF}'")
         let l:sourcefiles=split(l:findop,"\n")
         let l:sourcename = ""
         for fname in l:sourcefiles
-            let l:sourcename = substitute(fname,".vimrc","","")
+            let l:sourcename = substitute(fname,".".g:sauce_extension,"","")
             call add(l:sources,l:sourcename)
         endfor
     endif
@@ -110,8 +110,8 @@ endfunction
 
 " Load a source file
 function sauce#LoadSauce(source)
-	let saucefile = g:sauce_path.a:source.".vimrc"
-	if filereadable(saucefile)	
+	let saucefile = g:sauce_path.a:source.".".g:sauce_extension
+	if filereadable(saucefile)
 		if 1 == g:sauce_output
 			echo "Loading sauce file ".saucefile
 		endif
