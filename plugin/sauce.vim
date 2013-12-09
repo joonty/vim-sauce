@@ -28,6 +28,11 @@ if !exists("g:sauce_output")
 	let g:sauce_output = 1
 endif
 
+" An extension given to all sauce files
+if !exists("g:sauce_extension")
+    let g:sauce_extension = "vimrc"
+endif
+
 let g:sauce_path = resolve(expand(g:sauce_path))."/"
 
 if !isdirectory(g:sauce_path)
