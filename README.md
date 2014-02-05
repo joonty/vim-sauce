@@ -34,12 +34,20 @@ Actually, a quick guide is all that's needed. There are just a few handy functio
 
 ## Installation
 
+** Vundle **
 Installation is easy-peasy if you're using [Vundle][3]. Just add this to your *.vimrc* file:
 
 ```vim
 Bundle 'joonty/vim-sauce.git'
 ```
 and run `vim +BundleInstall +qall` from a terminal.
+
+** Pathogen **
+
+```vim
+cd ~/.vim/bundle
+git clone git://github.com/joonty/vim-sauce.git
+```
 
 If you aren't using vundle, you will have to extract the files in each folder to the correct folder in *.vim/*.
 
