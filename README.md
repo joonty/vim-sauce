@@ -34,7 +34,7 @@ Actually, a quick guide is all that's needed. There are just a few handy functio
 
 ## Installation
 
-** Vundle **
+**Vundle**
 Installation is easy-peasy if you're using [Vundle][3]. Just add this to your *.vimrc* file:
 
 ```vim
@@ -42,7 +42,7 @@ Bundle 'joonty/vim-sauce.git'
 ```
 and run `vim +BundleInstall +qall` from a terminal.
 
-** Pathogen **
+**Pathogen**
 
 ```vim
 cd ~/.vim/bundle
