@@ -35,6 +35,7 @@ Actually, a quick guide is all that's needed. There are just a few handy functio
 ## Installation
 
 **Vundle**
+
 Installation is easy-peasy if you're using [Vundle][3]. Just add this to your *.vimrc* file:
 
 ```vim
