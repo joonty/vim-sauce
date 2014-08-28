@@ -8,7 +8,7 @@ function! sauce#SauceNew(name,skel)
 		return 0
 	endif
 	let fname = g:sauce_path.a:name.".".g:sauce_extension
-	exec "silent e ".fname." | silent r ".a:skel
+	exec "silent e ".fname." | silent 0r ".a:skel
     return 1
 endfunction
 
