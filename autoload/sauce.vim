@@ -72,44 +72,23 @@ function! sauce#SauceDelete(name)
 		echohl Error | echo "Invalid sauce file: ".fname | echohl None
 	endif
 endfunction
-"
-" Delete a sauce file with the given name
-function! sauce#SauceDelete(name)
-	let fname = g:sauce_path.a:name.".".g:sauce_extension
-	if filereadable(fname)
-		let response = confirm("Are you sure you want to delete the sauce '".a:name."'? ","&Yes\n&No",2)
-		if response == 1
-			let delret = delete(fname)
-			if 0 == delret
-				echohl Error | echo "Deleted sauce file: ".fname | echohl None
-			else
-				echohl Error | echo "Failed to delete sauce file: ".fname | echohl None
-			endif
-		else
-			echom "Cancelled delete"
-		endif
-	else
-		echohl Error | echo "Invalid sauce file: ".fname | echohl None
-	endif
-endfunction
 
 " Get all sauces as a list
 function! sauce#SauceNames()
     let l:sources = []
-    if has("unix")
-        let l:findop=system("find ".g:sauce_path." -name \"*.".g:sauce_extension."\" |awk -F/ '{print $NF}'")
-        let l:sourcefiles=split(l:findop,"\n")
-        let l:sourcename = ""
-        for fname in l:sourcefiles
-            let l:sourcename = substitute(fname,".".g:sauce_extension,"","")
-            call add(l:sources,l:sourcename)
-        endfor
-    endif
-	return l:sources
+    let l:sourcefiles=split(globpath(g:sauce_path,"**/*.".g:sauce_extension),"\n")
+    for fname in l:sourcefiles
+        " replace separator for smoother substitution.
+        let l:basepath=substitute(g:sauce_path,"\\","/","g")
+        let l:sourcename=substitute(fname,"\\","/","g")
+        let l:sourcename=substitute(l:sourcename,l:basepath."\\(.*\\).".g:sauce_extension,"\\1","")
+        call add(l:sources,l:sourcename)
+    endfor
+    return l:sources
 endfunction
 
 " Load a source file
-function sauce#LoadSauce(source)
+function! sauce#LoadSauce(source)
 	let saucefile = g:sauce_path.a:source.".".g:sauce_extension
 	if filereadable(saucefile)
 		if 1 == g:sauce_output
