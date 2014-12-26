@@ -72,26 +72,6 @@ function! sauce#SauceDelete(name)
 		echohl Error | echo "Invalid sauce file: ".fname | echohl None
 	endif
 endfunction
-"
-" Delete a sauce file with the given name
-function! sauce#SauceDelete(name)
-	let fname = g:sauce_path.a:name.".".g:sauce_extension
-	if filereadable(fname)
-		let response = confirm("Are you sure you want to delete the sauce '".a:name."'? ","&Yes\n&No",2)
-		if response == 1
-			let delret = delete(fname)
-			if 0 == delret
-				echohl Error | echo "Deleted sauce file: ".fname | echohl None
-			else
-				echohl Error | echo "Failed to delete sauce file: ".fname | echohl None
-			endif
-		else
-			echom "Cancelled delete"
-		endif
-	else
-		echohl Error | echo "Invalid sauce file: ".fname | echohl None
-	endif
-endfunction
 
 " Get all sauces as a list
 function! sauce#SauceNames()
@@ -109,7 +89,7 @@ function! sauce#SauceNames()
 endfunction
 
 " Load a source file
-function sauce#LoadSauce(source)
+function! sauce#LoadSauce(source)
 	let saucefile = g:sauce_path.a:source.".".g:sauce_extension
 	if filereadable(saucefile)
 		if 1 == g:sauce_output
