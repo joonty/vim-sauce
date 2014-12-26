@@ -76,16 +76,15 @@ endfunction
 " Get all sauces as a list
 function! sauce#SauceNames()
     let l:sources = []
-    if has("unix")
-        let l:findop=system("find ".g:sauce_path." -name \"*.".g:sauce_extension."\" |awk -F/ '{print $NF}'")
-        let l:sourcefiles=split(l:findop,"\n")
-        let l:sourcename = ""
-        for fname in l:sourcefiles
-            let l:sourcename = substitute(fname,".".g:sauce_extension,"","")
-            call add(l:sources,l:sourcename)
-        endfor
-    endif
-	return l:sources
+    let l:sourcefiles=split(globpath(g:sauce_path,"**/*.".g:sauce_extension),"\n")
+    for fname in l:sourcefiles
+        " replace separator for smoother substitution.
+        let l:basepath=substitute(g:sauce_path,"\\","/","g")
+        let l:sourcename=substitute(fname,"\\","/","g")
+        let l:sourcename=substitute(l:sourcename,l:basepath."\\(.*\\).".g:sauce_extension,"\\1","")
+        call add(l:sources,l:sourcename)
+    endfor
+    return l:sources
 endfunction
 
 " Load a source file

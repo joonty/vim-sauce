@@ -60,10 +60,6 @@ No configuration is necessary, although it's possible to change the default dire
 let g:sauce_path = "/path/to/sauces"
 ```
 
-## Known Issues
-
-The autocomplete currently won't work with Windows. However, plans are in place to change that.
-
 ## License
 
 Sauce for Vim is released under the MIT license. See the LICENSE file for more information.
