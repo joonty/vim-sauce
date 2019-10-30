@@ -96,8 +96,12 @@ endfunction
 " Get all sauces as a list
 function! sauce#SauceNames()
     let l:sources = []
-    if has("unix")
-        let l:findop=system("find ".g:sauce_path." -name \"*.".g:sauce_extension."\" |awk -F/ '{print $NF}'")
+    if has("unix") || has("windows")
+        if has("unix")
+            let l:findop=system("find ".g:sauce_path." -name \"*.".g:sauce_extension."\" |awk -F/ '{print $NF}'")
+        else
+            let l:findop=system("powershell Get-ChildItem -Path ".g:sauce_path." -Filter \"*.".g:sauce_extension."\" -Name")
+        endif
         let l:sourcefiles=split(l:findop,"\n")
         let l:sourcename = ""
         for fname in l:sourcefiles
